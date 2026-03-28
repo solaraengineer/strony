@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafka Stream Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <div class="logo-nodes"><span></span><span></span><span></span></div>
+            <div class="logo-text">kafka.sim</div>
+        </div>
+        <div class="nav-right">
+            <span id="clock"></span>
+            <button id="dark-btn" class="nav-btn">dark mode</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <div class="hero-label"><span class="dot"></span> Event Stream Simulator</div>
+            <h1>Kafka <span class="thin">Visualized.</span></h1>
+            <p class="hero-sub">Watch events flow from producers through partitions to consumers in real time Everything is automated</p>
+        </div>
+
+        <div class="divider"><div class="divider-line"><div class="packet"></div><div class="packet p2"></div><div class="packet p3"></div></div></div>
+
+        <div class="top-row">
+            <div class="panel producer-panel">
+                <div class="sec-head">
+                    <span class="sec-num">01</span>
+                    <span class="sec-title">Producer</span>
+                    <div class="sec-line"></div>
+                </div>
+                <div class="last-produced" id="last-produced">waiting...</div>
+                <div class="producer-stats">
+                    <span id="produce-count">0 produced</span>
+                    <span id="eps">0 evt/s</span>
+                </div>
+                <div class="producer-buttons">
+                    <button id="produce-btn">produce event</button>
+                    <button id="random-btn" class="secondary-btn">random burst</button>
+                </div>
+            </div>
+
+            <div class="panel partitions-panel">
+                <div class="sec-head">
+                    <span class="sec-num">02</span>
+                    <span class="sec-title">Partitions</span>
+                    <div class="sec-line"></div>
+                </div>
+                <div class="partition-grid">
+                    <div class="partition" id="p0">
+                        <div class="p-head"><span class="p-dot"></span> P0</div>
+                        <div class="p-bar"><div class="p-fill" id="p0-fill"></div></div>
+                        <span class="p-count" id="p0-count">0</span>
+                    </div>
+                    <div class="partition" id="p1">
+                        <div class="p-head"><span class="p-dot"></span> P1</div>
+                        <div class="p-bar"><div class="p-fill" id="p1-fill"></div></div>
+                        <span class="p-count" id="p1-count">0</span>
+                    </div>
+                    <div class="partition" id="p2">
+                        <div class="p-head"><span class="p-dot"></span> P2</div>
+                        <div class="p-bar"><div class="p-fill" id="p2-fill"></div></div>
+                        <span class="p-count" id="p2-count">0</span>
+                    </div>
+                </div>
+                <p class="partition-explain">Events are routed to partitions using a hash of the key. Same key always lands in the same partition this guarantees per-key ordering.</p>
+            </div>
+
+            <div class="panel consumer-panel">
+                <div class="sec-head">
+                    <span class="sec-num">03</span>
+                    <span class="sec-title">Consumer Group</span>
+                    <div class="sec-line"></div>
+                </div>
+                <div class="consumer-stats">
+                    <div class="consumer-stat">
+                        <span class="cs-label">consumed</span>
+                        <span class="cs-value" id="consumed-count">0</span>
+                    </div>
+                    <div class="consumer-stat">
+                        <span class="cs-label">lag</span>
+                        <span class="cs-value" id="lag">0</span>
+                    </div>
+                    <div class="consumer-stat">
+                        <span class="cs-label">offset</span>
+                        <span class="cs-value" id="current-offset">0</span>
+                    </div>
+                </div>
+                <div id="consumer-log" class="consumer-log"></div>
+            </div>
+        </div>
+
+        <div class="divider"><div class="divider-line"><div class="packet"></div><div class="packet p2"></div><div class="packet p3"></div></div></div>
+
+        <div class="sec-head">
+            <span class="sec-num">04</span>
+            <span class="sec-title">Event Stream</span>
+            <div class="sec-line"></div>
+        </div>
+
+        <div id="event-list" class="event-list"></div>
+
+        <p class="window-info" id="window-size"></p>
+    </main>
+
+    <button id="top-btn" class="top-btn hide">↑</button>
+
+    <footer>
+        <span>kafka.sim</span>
+        <div class="footer-nodes"><span></span><span></span><span></span></div>
+        <span>2026</span>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
